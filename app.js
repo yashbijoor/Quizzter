@@ -224,6 +224,7 @@ app.get("/dashboard", function (req, res) {
       }
     );
   });
+
   app.get("/leaderboard", function (req, res) {
     User.find().count(function (err, count) {
       if (err) {
@@ -238,6 +239,10 @@ app.get("/dashboard", function (req, res) {
           res.render("leaderboard", { count: count, docs: docs });
         });
     });
+  });
+
+  app.get("/failure", function (req, res) {
+    res.redirect("/");
   });
 });
 
