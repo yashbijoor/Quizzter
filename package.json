@@ -1,0 +1,23 @@
+{
+  "name": "quizzter",
+  "version": "1.0.0",
+  "description": "A quiz panel with a leaderboard",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yash Bijoor",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "mongoose": "^6.2.9",
+    "nodemon": "^2.0.16",
+    "request": "^2.88.2"
+  }
+}

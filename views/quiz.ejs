@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="logo"></div>
+      <div class="title">QUIZZTER</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a class="nav-link" href="/dashboard">Exit</a></li>
+      </ul>
+    </nav>
+    <div class="wrapper">
+      <div class="question-wrapper">
+        <div class="score-div">
+          <span class="score"><%= res %></span>
+        </div>
+        <p class="question"><%= question %></p>
+      </div>
+      <form class="option-form" action="/dashboard" method="post">
+        <% if(flag < 11){ %>
+        <button type="submit" class="option" name="options" value="1">
+          <p class="option1">A. <%= optionList[0] %></p>
+        </button>
+        <button type="submit" class="option" name="options" value="2">
+          <p class="option2">B. <%= optionList[1] %></p>
+        </button>
+        <button type="submit" class="option" name="options" value="3">
+          <p class="option3">C. <%= optionList[2] %></p>
+        </button>
+        <button type="submit" class="option" name="options" value="4">
+          <p class="option4">D. <%= optionList[3] %></p>
+        </button>
+        <% } %> <% if(flag === 11) { %>
+        <button class="btn-input" type="submit"><%= button %></button>
+        <% } %>
+      </form>
+    </div>
+  </body>
+</html>

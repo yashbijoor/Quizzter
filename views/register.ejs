@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="logo"></div>
+      <div class="title">QUIZZTER</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a class="nav-link" href="">About</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Sign Up</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/signin">Sign In</a></li>
+      </ul>
+    </nav>
+    <div class="wrapper">
+      <div class="container">
+        <div class="sign-container">
+          <h2>Sign Up</h2>
+          <form class="sign-form" action="/register" method="post">
+            <input
+              name="name"
+              class="sign-input"
+              type="text"
+              placeholder="Name"
+            />
+            <input
+              name="email"
+              class="sign-input"
+              type="email"
+              placeholder="Email"
+            />
+            <input
+              name="password"
+              class="sign-input"
+              type="password"
+              placeholder="Password"
+            />
+            <button class="btn-input" type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
