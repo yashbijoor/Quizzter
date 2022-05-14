@@ -7,8 +7,6 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const md5 = require("md5");
 const _ = require("lodash");
-const listOfCorrectOptions = []; //List of correct options as the local 'correctOption' does not sync with the user selected option
-var flag = 0; //Stores the number of iterations i.e. the no of questions the user will answer
 
 const app = express();
 
@@ -57,7 +55,9 @@ const User = new mongoose.model("User", userSchema);
 
 app.get("/dashboard", function (req, res) {
   GlobalCategory = []; //Emptying the category array for the next iteration
-  flag = 0; // Flag is 0 for the next iteration
+  req.session.flag = 0; //Stores the number of iterations i.e. the no of questions the user will answer
+  // Flag is 0 for the next iteration
+  req.session.listOfCorrectOptions = []; //List of correct options as the local 'correctOption' does not sync with the user selected option
 
   var username = req.session.email;
 
@@ -87,6 +87,7 @@ app.get("/dashboard", function (req, res) {
   });
 
   app.post("/dashboard", function (req, res) {
+    console.log(req.session.listOfCorrectOptions);
     var username = req.session.email;
     User.updateOne(
       { email: username },
@@ -118,10 +119,11 @@ app.get("/dashboard", function (req, res) {
                       const question = data.results[0].question;
                       const optionList = [];
                       const options = data.results[0].incorrect_answers;
-                      flag++;
+                      req.session.flag = req.session.flag + 1;
+                      var flag = req.session.flag;
                       const correctOption = data.results[0].correct_answer;
                       let option = parseInt(Math.floor(Math.random() * 4));
-                      listOfCorrectOptions.push(option);
+                      req.session.listOfCorrectOptions.push(option);
                       var count = 0; //To know when to push the options in the array
                       for (var i = 0; i <= 3; i++) {
                         if (option === i) {
@@ -132,7 +134,10 @@ app.get("/dashboard", function (req, res) {
                         }
                       }
                       // The index of 'listOfCorrectOptions' is flag-2 cuz the list is 2 indices behind the user chosen option
-                      if (chosenOption - 1 === listOfCorrectOptions[flag - 2]) {
+                      if (
+                        chosenOption - 1 ===
+                        req.session.listOfCorrectOptions[flag - 2]
+                      ) {
                         result = "The answer you chose was correct!";
                         var username = req.session.email;
                         User.findOne(
