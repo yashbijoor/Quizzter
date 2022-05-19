@@ -58,6 +58,7 @@ app.get("/dashboard", function (req, res) {
   req.session.flag = 0; //Stores the number of iterations i.e. the no of questions the user will answer
   // Flag is 0 for the next iteration
   req.session.listOfCorrectOptions = []; //List of correct options as the local 'correctOption' does not sync with the user selected option
+  req.session.score = 0;
 
   var username = req.session.email;
 
@@ -87,7 +88,6 @@ app.get("/dashboard", function (req, res) {
   });
 
   app.post("/dashboard", function (req, res) {
-    console.log(req.session.listOfCorrectOptions);
     var username = req.session.email;
     User.updateOne(
       { email: username },
@@ -114,7 +114,6 @@ app.get("/dashboard", function (req, res) {
                       res.render("failure");
                     } else {
                       var scoreCount = 0;
-                      var result = "Oops! The answer you chose was wrong!";
                       const data = JSON.parse(body);
                       const question = data.results[0].question;
                       const optionList = [];
@@ -138,7 +137,7 @@ app.get("/dashboard", function (req, res) {
                         chosenOption - 1 ===
                         req.session.listOfCorrectOptions[flag - 2]
                       ) {
-                        result = "The answer you chose was correct!";
+                        req.session.score = req.session.score + 1;
                         var username = req.session.email;
                         User.findOne(
                           { email: username },
@@ -163,7 +162,7 @@ app.get("/dashboard", function (req, res) {
                           }
                         );
                       }
-                      if (flag > 11) {
+                      if (flag > 10) {
                         var username = req.session.email;
                         User.findOne(
                           { email: username },
@@ -173,43 +172,32 @@ app.get("/dashboard", function (req, res) {
                             } else {
                               if (foundUser) {
                                 res.render("scoreboard", {
-                                  score: foundUser.currentScore,
+                                  score: req.session.score,
                                 });
                               }
                             }
                           }
                         );
-                      } else if (flag === 11) {
-                        res.render("quiz", {
-                          question: "Congratulations on completing the quiz.",
-                          optionList: [],
-                          res: " ",
-                          button: "PROCEED",
-                          flag: flag,
-                        });
                       } else if (flag === 10) {
                         res.render("quiz", {
                           question: question,
                           optionList: optionList,
-                          res: result,
+                          res: "Score: " + req.session.score,
                           flag: flag,
-                          button: "FINISH",
                         });
                       } else if (flag === 1) {
                         res.render("quiz", {
                           question: question,
                           optionList: optionList,
-                          res: "Your current score is 0",
+                          res: "Score: " + req.session.score,
                           flag: flag,
-                          button: "CONTINUE",
                         });
                       } else {
                         res.render("quiz", {
                           question: question,
                           optionList: optionList,
-                          res: result,
+                          res: "Score: " + req.session.score,
                           flag: flag,
-                          button: "CONTINUE",
                         });
                       }
                     }
@@ -347,14 +335,17 @@ app.post("/scoreboard", function (req, res) {
       console.log(err);
     } else {
       if (foundUser) {
-        if (foundUser.currentScore >= foundUser.highscore) {
-          var s = foundUser.currentScore;
+        if (req.session.score >= foundUser.highscore) {
           var username = require("./app.js");
-          User.updateOne({ email: username }, { highscore: s }, function (err) {
-            if (err) {
-              console.log(err);
+          User.updateOne(
+            { email: username },
+            { highscore: req.session.score },
+            function (err) {
+              if (err) {
+                console.log(err);
+              }
             }
-          });
+          );
         }
       }
     }
