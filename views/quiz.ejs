@@ -17,8 +17,14 @@
     </nav>
     <div class="wrapper">
       <div class="question-wrapper">
+        <div class="progress">
+          <progress value = <%= flag %> max = "10"/>
+        </div>
+        <div class="topic-div">
+          <h3>Category: <%= category %></h3>
+        </div>
         <div class="score-div">
-          <span class="score"><%= res %></span>
+          <span class="score">Score: <%= res %></span>
         </div>
         <p class="question"><%= question %></p>
       </div>

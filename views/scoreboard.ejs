@@ -15,7 +15,34 @@
     </nav>
     <div class="wrapper">
       <form action="/scoreboard" method="post">
-        <div class="score"><p>Your final score is : <%= score %></p></div>
+        <div class="topic-div">
+          <h3>Category: <%= category %></h3>
+        </div>
+        <div class="score">
+          <p>Well done <%= user.name %>!</p>
+          <p>Your final score is : <%= score %></p>
+        </div>
+        <div>
+          <p>Score breakdown:</p>
+          <table>
+            <tr>
+              <th>Question</th>
+              <th>Result</th>
+              <th>Points</th>
+            </tr>
+            <% for(i=0; i< 10; i++){ %>
+            <tr>
+              <td>Q.<%= i+1 %></td>
+              <% if ( data[i] === 1 ) { %>
+              <td>Correct</td>
+              <% } else { %>
+              <td>Incorrect</td>
+              <% } %>
+              <td><%= data[i] %></td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
         <br /><br />
         <button class="btn-input" type="submit">RETURN TO DASHBOARD</button>
       </form>

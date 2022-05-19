@@ -58,7 +58,8 @@ app.get("/dashboard", function (req, res) {
   req.session.flag = 0; //Stores the number of iterations i.e. the no of questions the user will answer
   // Flag is 0 for the next iteration
   req.session.listOfCorrectOptions = []; //List of correct options as the local 'correctOption' does not sync with the user selected option
-  req.session.score = 0;
+  req.session.score = 0; // Score saved in a session variable
+  req.session.result = []; // Result
 
   var username = req.session.email;
 
@@ -116,6 +117,7 @@ app.get("/dashboard", function (req, res) {
                       var scoreCount = 0;
                       const data = JSON.parse(body);
                       const question = data.results[0].question;
+                      const category = data.results[0].category;
                       const optionList = [];
                       const options = data.results[0].incorrect_answers;
                       req.session.flag = req.session.flag + 1;
@@ -139,6 +141,7 @@ app.get("/dashboard", function (req, res) {
                       ) {
                         req.session.score = req.session.score + 1;
                         var username = req.session.email;
+                        req.session.result.push(1);
                         User.findOne(
                           { email: username },
                           function (err, foundUser) {
@@ -161,6 +164,10 @@ app.get("/dashboard", function (req, res) {
                             }
                           }
                         );
+                      } else {
+                        if (flag > 1) {
+                          req.session.result.push(0);
+                        }
                       }
                       if (flag > 10) {
                         var username = req.session.email;
@@ -171,7 +178,11 @@ app.get("/dashboard", function (req, res) {
                               console.log(err);
                             } else {
                               if (foundUser) {
+                                console.log(foundUser);
                                 res.render("scoreboard", {
+                                  user: foundUser,
+                                  category: category,
+                                  data: req.session.result,
                                   score: req.session.score,
                                 });
                               }
@@ -182,22 +193,25 @@ app.get("/dashboard", function (req, res) {
                         res.render("quiz", {
                           question: question,
                           optionList: optionList,
-                          res: "Score: " + req.session.score,
+                          res: req.session.score,
                           flag: flag,
+                          category: category,
                         });
                       } else if (flag === 1) {
                         res.render("quiz", {
                           question: question,
                           optionList: optionList,
-                          res: "Score: " + req.session.score,
+                          res: req.session.score,
                           flag: flag,
+                          category: category,
                         });
                       } else {
                         res.render("quiz", {
                           question: question,
                           optionList: optionList,
-                          res: "Score: " + req.session.score,
+                          res: req.session.score,
                           flag: flag,
+                          category: category,
                         });
                       }
                     }
@@ -256,6 +270,10 @@ app.get("/signin", function (req, res) {
   } else {
     res.render("signin");
   }
+});
+
+app.get("/about", function (req, res) {
+  res.render("about");
 });
 
 app.get("/logout", function (req, res) {
