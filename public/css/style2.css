@@ -19,8 +19,8 @@
 }
 
 body {
-  color: var(--dark-color);
-  background-color: #f2f2f2;
+  color: var(--light-color);
+  background-color: var(--dark-color);
   font-family: "Inter", sans-serif;
   min-height: 100vh;
 }
@@ -48,7 +48,7 @@ body {
 
 .nav-link {
   text-decoration: none;
-  color: var(--dark-color);
+  color: var(--light-color);
 }
 
 ::placeholder {
@@ -81,8 +81,8 @@ body {
 }
 
 .category {
-  background-color: #f2f2f2;
-  border: 1px solid #1f1f1f;
+  background-color: #1f1f1f;
+  border: 1px solid #f2f2f2;
   padding: 10px;
   height: 200px;
   width: 200px;
@@ -90,6 +90,7 @@ body {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  color: var(--light-color);
 }
 
 .category p {
@@ -104,7 +105,7 @@ body {
   left: 0;
   width: 130%;
   height: 200px;
-  background-color: #1f1f1f;
+  background-color: #f2f2f2;
   transform: translate(-110%, 0);
   transition: 0.5s;
   z-index: 5;
@@ -119,7 +120,7 @@ body {
 }
 
 .category:hover {
-  color: #f2f2f2;
+  color: #1f1f1f;
 }
 
 .wrapper {
