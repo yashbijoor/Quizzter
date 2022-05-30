@@ -18,21 +18,21 @@
       </div>
       <ul class="nav-list">
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard">Dashboard</a>
+          <a class="nav-link" href="/">Home</a>
         </li>
       </ul>
     </nav>
     <div class="wrapper-wrapper">
       <div class="wrapper1">
-        <form class="score-form" action="/scoreboard" method="post">
+        <form class="score-form">
           <div>
-            <p>Well done <%= user.name %>!</p>
+            <p>Well done!</p>
           </div>
           <div class="topic-div">
-            <p>Category: <%= category %></p>
+            <p>Category: General Knowledge</p>
           </div>
           <div class="score">
-            <p>Your score is : <%= score %></p>
+            <p class="final-score"></p>
           </div>
           <div>
             <p>Score breakdown:</p>
@@ -43,25 +43,27 @@
                 <th>Result</th>
                 <th>Points</th>
               </tr>
-              <% for(i=0; i< 10; i++){ %>
               <tr>
-                <td>Q.<%= i+1 %></td>
-                <% if ( data[i] === 1 ) { %>
-                <td>Correct</td>
-                <% } else { %>
-                <td>Incorrect</td>
-                <% } %>
-                <td><%= data[i] %></td>
+                <td>Q.1</td>
+                <td class="1-1"></td>
+                <td class="1-2"></td>
               </tr>
-              <% } %>
+              <tr>
+                <td>Q.2</td>
+                <td class="2-1"></td>
+                <td class="2-2"></td>
+              </tr>
+              <tr>
+                <td>Q.3</td>
+                <td class="3-1"></td>
+                <td class="3-2"></td>
+              </tr>
             </table>
-          </div>
-          <div class="btn-wrapper">
-            <button class="btn-input" type="submit">RETURN TO DASHBOARD</button>
           </div>
         </form>
       </div>
     </div>
+    <script type="module" src="score.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

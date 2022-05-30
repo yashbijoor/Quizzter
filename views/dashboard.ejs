@@ -5,12 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="css/style2.css" />
+    <link rel="stylesheet" href="css/style3.css" />
   </head>
   <body>
     <nav class="nav">
       <div class="logo"><p>Welcome <%= name %>!</p></div>
       <div class="title">QUIZZTER</div>
+      <div class="hamburger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
       <ul class="nav-list">
         <li class="nav-item">
           <a class="nav-link" href="/leaderboard">Leaderboard</a>
@@ -18,79 +23,82 @@
         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
       </ul>
     </nav>
-    <form class="category-container" action="/dashboard" method="post">
-      <button type="submit" class="category" name="category" value="9">
-        <p>General Knowledge</p>
-      </button>
-      <button type="submit" class="category" name="category" value="10">
-        <p>Entertainment: Books</p>
-      </button>
-      <button type="submit" class="category" name="category" value="11">
-        <p>Entertainment: Film</p>
-      </button>
-      <button type="submit" class="category" name="category" value="12">
-        <p>Entertainment: Music</p>
-      </button>
-      <button type="submit" class="category" name="category" value="13">
-        <p>Entertainment: Musicals and Theatres</p>
-      </button>
-      <button type="submit" class="category" name="category" value="14">
-        <p>Entertainment: Television</p>
-      </button>
-      <button type="submit" class="category" name="category" value="15">
-        <p>Entertainment: Video Games</p>
-      </button>
-      <button type="submit" class="category" name="category" value="16">
-        <p>Entertainment: Board Games</p>
-      </button>
-      <button type="submit" class="category" name="category" value="17">
-        <p>Science & Nature</p>
-      </button>
-      <button type="submit" class="category" name="category" value="18">
-        <p>Science: Computers</p>
-      </button>
-      <button type="submit" class="category" name="category" value="19">
-        <p>Science: Mathematics</p>
-      </button>
-      <button type="submit" class="category" name="category" value="20">
-        <p>Mythology</p>
-      </button>
-      <button type="submit" class="category" name="category" value="21">
-        <p>Sports</p>
-      </button>
-      <button type="submit" class="category" name="category" value="22">
-        <p>Geography</p>
-      </button>
-      <button type="submit" class="category" name="category" value="23">
-        <p>History</p>
-      </button>
-      <button type="submit" class="category" name="category" value="24">
-        <p>Politics</p>
-      </button>
-      <button type="submit" class="category" name="category" value="25">
-        <p>Art</p>
-      </button>
-      <button type="submit" class="category" name="category" value="26">
-        <p>Celebrities</p>
-      </button>
-      <button type="submit" class="category" name="category" value="27">
-        <p>Animals</p>
-      </button>
-      <button type="submit" class="category" name="category" value="28">
-        <p>Vehicles</p>
-      </button>
-      <button type="submit" class="category" name="category" value="29">
-        <p>Entertainment: Television</p>
-      </button>
-      <button type="submit" class="category" name="category" value="30">
-        <p>Entertainment: Gadgets</p>
-      </button>
-      <button type="submit" class="category" name="category" value="31">
-        <p>Japanese Anime and Manga</p>
-      </button>
-      <button type="submit" class="category" name="category" value="32">
-        <p>Cartoons and Animations</p>
-      </button>
-    </form>
+    <div class="wrapper-wrapper">
+      <form class="category-container" action="/dashboard" method="post">
+        <button type="submit" class="category" name="category" value="9">
+          <p>General Knowledge</p>
+        </button>
+        <button type="submit" class="category" name="category" value="10">
+          <p>Entertainment: Books</p>
+        </button>
+        <button type="submit" class="category" name="category" value="11">
+          <p>Entertainment: Film</p>
+        </button>
+        <button type="submit" class="category" name="category" value="12">
+          <p>Entertainment: Music</p>
+        </button>
+        <button type="submit" class="category" name="category" value="13">
+          <p>Entertainment: Musicals and Theatres</p>
+        </button>
+        <button type="submit" class="category" name="category" value="14">
+          <p>Entertainment: Television</p>
+        </button>
+        <button type="submit" class="category" name="category" value="15">
+          <p>Entertainment: Video Games</p>
+        </button>
+        <button type="submit" class="category" name="category" value="16">
+          <p>Entertainment: Board Games</p>
+        </button>
+        <button type="submit" class="category" name="category" value="17">
+          <p>Science & Nature</p>
+        </button>
+        <button type="submit" class="category" name="category" value="18">
+          <p>Science: Computers</p>
+        </button>
+        <button type="submit" class="category" name="category" value="19">
+          <p>Science: Mathematics</p>
+        </button>
+        <button type="submit" class="category" name="category" value="20">
+          <p>Mythology</p>
+        </button>
+        <button type="submit" class="category" name="category" value="21">
+          <p>Sports</p>
+        </button>
+        <button type="submit" class="category" name="category" value="22">
+          <p>Geography</p>
+        </button>
+        <button type="submit" class="category" name="category" value="23">
+          <p>History</p>
+        </button>
+        <button type="submit" class="category" name="category" value="24">
+          <p>Politics</p>
+        </button>
+        <button type="submit" class="category" name="category" value="25">
+          <p>Art</p>
+        </button>
+        <button type="submit" class="category" name="category" value="26">
+          <p>Celebrities</p>
+        </button>
+        <button type="submit" class="category" name="category" value="27">
+          <p>Animals</p>
+        </button>
+        <button type="submit" class="category" name="category" value="28">
+          <p>Vehicles</p>
+        </button>
+        <button type="submit" class="category" name="category" value="29">
+          <p>Entertainment: Television</p>
+        </button>
+        <button type="submit" class="category" name="category" value="30">
+          <p>Entertainment: Gadgets</p>
+        </button>
+        <button type="submit" class="category" name="category" value="31">
+          <p>Japanese Anime and Manga</p>
+        </button>
+        <button type="submit" class="category" name="category" value="32">
+          <p>Cartoons and Animations</p>
+        </button>
+      </form>
+    </div>
+    <script src="index.js"></script>
   </body>
 </html>

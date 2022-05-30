@@ -58,7 +58,6 @@ app.get("/dashboard", function (req, res) {
   req.session.flag = 0; //Stores the number of iterations i.e. the no of questions the user will answer
   // Flag is 0 for the next iteration
   req.session.listOfCorrectOptions = []; //List of correct options as the local 'correctOption' does not sync with the user selected option
-  req.session.score = 0; // Score saved in a session variable
   req.session.result = []; // Result
 
   var username = req.session.email;
@@ -78,6 +77,19 @@ app.get("/dashboard", function (req, res) {
     } else {
       if (foundUser) {
         if (foundUser.logStatus === true) {
+          if (req.session.score >= foundUser.highscore) {
+            var username = require("./app.js");
+            User.updateOne(
+              { email: username },
+              { highscore: req.session.score },
+              function (err) {
+                if (err) {
+                  console.log(err);
+                }
+              }
+            );
+          }
+          req.session.score = 0; // Score saved in a session variable
           res.render("dashboard", { name: foundUser.name });
         } else {
           res.redirect("/signin");
@@ -116,7 +128,10 @@ app.get("/dashboard", function (req, res) {
                     } else {
                       var scoreCount = 0;
                       const data = JSON.parse(body);
-                      const question = data.results[0].question;
+                      const question = data.results[0].question
+                        .replace(/&amp;/g, "&")
+                        .replace(/&quot;/g, '"')
+                        .replace(/&#039;/g, "'");
                       const category = data.results[0].category;
                       const optionList = [];
                       const options = data.results[0].incorrect_answers;
@@ -178,7 +193,6 @@ app.get("/dashboard", function (req, res) {
                               console.log(err);
                             } else {
                               if (foundUser) {
-                                console.log(foundUser);
                                 res.render("scoreboard", {
                                   user: foundUser,
                                   category: category,
@@ -249,11 +263,7 @@ app.get("/dashboard", function (req, res) {
 });
 
 app.get("/", function (req, res) {
-  if (req.session.email) {
-    res.redirect("/dashboard");
-  } else {
-    res.render("home");
-  }
+  res.render("home");
 });
 
 app.get("/register", function (req, res) {
@@ -272,8 +282,11 @@ app.get("/signin", function (req, res) {
   }
 });
 
-app.get("/about", function (req, res) {
-  res.render("about");
+app.get("/sample", function (req, res) {
+  res.render("sample");
+  app.get("/sample-score", function (req, res) {
+    res.render("sample-score");
+  });
 });
 
 app.get("/logout", function (req, res) {
@@ -347,27 +360,27 @@ app.post("/signin", function (req, res) {
 });
 
 app.post("/scoreboard", function (req, res) {
-  var username = req.session.email;
-  User.findOne({ email: username }, function (err, foundUser) {
-    if (err) {
-      console.log(err);
-    } else {
-      if (foundUser) {
-        if (req.session.score >= foundUser.highscore) {
-          var username = require("./app.js");
-          User.updateOne(
-            { email: username },
-            { highscore: req.session.score },
-            function (err) {
-              if (err) {
-                console.log(err);
-              }
-            }
-          );
-        }
-      }
-    }
-  });
+  // var username = req.session.email;
+  // User.findOne({ email: username }, function (err, foundUser) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     if (foundUser) {
+  //       if (req.session.score >= foundUser.highscore) {
+  //         var username = require("./app.js");
+  //         User.updateOne(
+  //           { email: username },
+  //           { highscore: req.session.score },
+  //           function (err) {
+  //             if (err) {
+  //               console.log(err);
+  //             }
+  //           }
+  //         );
+  //       }
+  //     }
+  //   }
+  // });
   res.redirect("/dashboard");
 });
 
