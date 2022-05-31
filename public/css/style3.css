@@ -274,6 +274,62 @@ td {
   display: none !important;
 }
 
+.container {
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-container {
+  padding: 40px 60px;
+  border: 1px solid #f2f2f2;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.sign-container h2 {
+  color: #f2f2f2;
+}
+
+.sign-input {
+  color: var(--dark-color);
+  height: 40px;
+  width: 180px;
+  padding: 0 10px;
+  font-size: 1rem;
+  background-color: #d5d5d5;
+  border: none;
+  outline: none;
+}
+
+::placeholder {
+  color: var(--dark-color);
+  opacity: 0.6;
+}
+
+.btn-input {
+  color: var(--dark-color);
+  border: none;
+  border-radius: 0.5rem;
+  text-align: center;
+  height: 45px;
+  width: 180px;
+  font-size: 1rem;
+  background-color: #d5d5d5;
+  margin: auto;
+}
+
+.sign-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
 @media screen and (max-width: 950px) {
   .nav-link {
     color: #f2f2f2;

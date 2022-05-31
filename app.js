@@ -279,6 +279,24 @@ app.get("/signin", function (req, res) {
     res.redirect("/dashboard");
   } else {
     res.render("signin");
+
+    app.get("/forgot-password", function (req, res) {
+      res.render("forgot-password");
+    });
+
+    app.post("/forgot-password", function (req, res) {
+      User.updateOne(
+        { email: req.body.email },
+        { password: md5(req.body.password + process.env.SALT) },
+        function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect("/signin");
+          }
+        }
+      );
+    });
   }
 });
 
