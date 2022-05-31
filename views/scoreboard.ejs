@@ -35,26 +35,34 @@
             <p>Your score is : <%= score %></p>
           </div>
           <div>
-            <p>Score breakdown:</p>
+            <p style="text-align: center">Score breakdown:</p>
             <br />
-            <table>
-              <tr>
-                <th>Question</th>
-                <th>Result</th>
-                <th>Points</th>
-              </tr>
-              <% for(i=0; i< 10; i++){ %>
-              <tr>
-                <td>Q.<%= i+1 %></td>
-                <% if ( data[i] === 1 ) { %>
-                <td>Correct</td>
-                <% } else { %>
-                <td>Incorrect</td>
-                <% } %>
-                <td><%= data[i] %></td>
-              </tr>
-              <% } %>
-            </table>
+            <div class="main-score-wrapper">
+              <div class="sub-score-wrapper">
+                <div>No.</div>
+                <div>Question</div>
+                <div>Chosen Option</div>
+                <div>Correct Option</div>
+                <div>Result</div>
+              </div>
+              <% for(i=0; i< 10; i++){ %> <% if ( data[i] === 1 ) { %>
+              <div class="sub-score-wrapper" style="background-color: #95cd41">
+                <div>Q.<%= i+1 %></div>
+                <div><%= questions[i] %></div>
+                <div><%= chosenOption[i] %></div>
+                <div><%= correctOption[i] %></div>
+                <div>Correct</div>
+              </div>
+              <% } else { %>
+              <div class="sub-score-wrapper" style="background-color: #ff5d5d">
+                <div>Q.<%= i+1 %></div>
+                <div><%= questions[i] %></div>
+                <div><%= chosenOption[i] %></div>
+                <div><%= correctOption[i] %></div>
+                <div>Incorrect</div>
+              </div>
+              <% } %> <% } %>
+            </div>
           </div>
           <div class="btn-wrapper">
             <button class="btn-input" type="submit">RETURN TO DASHBOARD</button>

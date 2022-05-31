@@ -59,6 +59,10 @@ app.get("/dashboard", function (req, res) {
   // Flag is 0 for the next iteration
   req.session.listOfCorrectOptions = []; //List of correct options as the local 'correctOption' does not sync with the user selected option
   req.session.result = []; // Result
+  req.session.questions = [];
+  req.session.chosenOption = [];
+  req.session.correctOption = [];
+  req.session.optionList = [];
 
   var username = req.session.email;
 
@@ -110,6 +114,11 @@ app.get("/dashboard", function (req, res) {
           console.log(err);
         } else {
           chosenOption = parseInt(req.body.options); //Local user option
+          if (req.session.flag > 0) {
+            req.session.chosenOption.push(
+              req.session.optionList[chosenOption - 1]
+            );
+          }
           var username = req.session.email;
           User.findOne({ email: username }, function (err, foundUser) {
             if (err) {
@@ -132,12 +141,14 @@ app.get("/dashboard", function (req, res) {
                         .replace(/&amp;/g, "&")
                         .replace(/&quot;/g, '"')
                         .replace(/&#039;/g, "'");
+                      req.session.questions.push(question);
                       const category = data.results[0].category;
                       const optionList = [];
                       const options = data.results[0].incorrect_answers;
                       req.session.flag = req.session.flag + 1;
                       var flag = req.session.flag;
                       const correctOption = data.results[0].correct_answer;
+                      req.session.correctOption.push(correctOption);
                       let option = parseInt(Math.floor(Math.random() * 4));
                       req.session.listOfCorrectOptions.push(option);
                       var count = 0; //To know when to push the options in the array
@@ -149,6 +160,7 @@ app.get("/dashboard", function (req, res) {
                           count++;
                         }
                       }
+                      req.session.optionList = optionList;
                       // The index of 'listOfCorrectOptions' is flag-2 cuz the list is 2 indices behind the user chosen option
                       if (
                         chosenOption - 1 ===
@@ -198,6 +210,9 @@ app.get("/dashboard", function (req, res) {
                                   category: category,
                                   data: req.session.result,
                                   score: req.session.score,
+                                  questions: req.session.questions,
+                                  chosenOption: req.session.chosenOption,
+                                  correctOption: req.session.correctOption,
                                 });
                               }
                             }
@@ -246,13 +261,14 @@ app.get("/dashboard", function (req, res) {
       if (err) {
         console.log(err);
       }
-      // User.find(function (err, docs) {
-      //   res.render("leaderboard", { count: count, docs: docs });
-      // });
       User.find()
         .sort([["highscore", -1]])
         .exec(function (err, docs) {
-          res.render("leaderboard", { count: count, docs: docs });
+          res.render("leaderboard", {
+            count: count,
+            docs: docs,
+            user: req.session.email,
+          });
         });
     });
   });
@@ -334,8 +350,12 @@ app.post("/register", function (req, res) {
 
   newUser.save(function (err) {
     if (err) {
-      console.log(err);
-      res.redirect("/signin");
+      app.get("/failure", function (req, res) {
+        res.render("failure", {
+          err: "This username already exists. Try another username.",
+        });
+      });
+      res.redirect("/failure");
     } else {
       req.session.email = email;
       res.redirect("/dashboard");

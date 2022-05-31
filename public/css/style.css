@@ -11,7 +11,6 @@
 }
 
 body {
-  overflow-x: hidden;
   background-image: url("background.png");
   background-size: cover;
   color: var(--dark-color);
@@ -75,8 +74,8 @@ body {
 
 .hero img {
   flex-basis: 0;
-  height: 300px;
-  margin: 30px;
+  height: clamp(11.25rem, 25vw, 24rem);
+  margin: 1.875rem;
 }
 
 .a {
@@ -87,6 +86,7 @@ body {
   font-size: 16px;
   border: none;
   border-radius: 0.5rem;
+  margin: 1rem 0.25rem;
   background-color: #1f1f1f;
   color: #f2f2f2;
   height: 40px;
@@ -99,6 +99,7 @@ body {
   font-size: 16px;
   border: 1px solid #030303;
   border-radius: 0.5rem;
+  margin: 1rem;
   background-color: #f2f2f2;
   color: #1f1f1f;
   height: 40px;
@@ -114,9 +115,17 @@ body {
   transition: background-color 0.3s;
 }
 
+.hero-main a .register-btn:hover {
+  background-color: #1f1f1f;
+  color: #f2f2f2;
+  border: 1px solid #f2f2f2;
+  transition: background-color 0.3s;
+}
+
 .register-btn:hover {
   background-color: #030303;
   color: #f2f2f2;
+  border: 1px solid #f2f2f2;
   transition: background-color 0.3s;
 }
 
@@ -473,6 +482,14 @@ progress {
 }
 
 @media screen and (max-width: 950px) {
+  .q-div {
+    border: none;
+  }
+
+  .hero-main p {
+    width: 100%;
+  }
+
   .nav-link {
     color: #f2f2f2;
   }

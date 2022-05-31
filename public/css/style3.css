@@ -23,6 +23,7 @@ body {
   background-color: var(--dark-color);
   font-family: "Inter", sans-serif;
   min-height: 100vh;
+  min-width: 400px;
 }
 
 /* HOME PAGE */
@@ -228,6 +229,7 @@ td {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  align-items: center;
 }
 
 .leaderboard-wrapper {
@@ -235,6 +237,7 @@ td {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 5rem;
 }
 
 .hamburger {
@@ -324,10 +327,51 @@ td {
   margin: auto;
 }
 
+.btn-input:hover {
+  background-color: #1f1f1f;
+  color: #f2f2f2;
+  border: 1px solid #f2f2f2;
+  transition: background-color 0.3s;
+}
+
 .sign-form {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+}
+
+.main-score-wrapper {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.sub-score-wrapper {
+  display: flex;
+  gap: 5px;
+  padding: 10px 5px;
+  border: 1px solid #f2f2f2;
+  justify-content: space-around;
+}
+
+.sub-score-wrapper div {
+  text-align: center;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.error-div {
+  margin: 2rem;
+  text-align: center;
+}
+
+.forgot-pass {
+  color: #242f9b;
+}
+
+.forgot-pass:hover {
+  color: #001d6e;
 }
 
 @media screen and (max-width: 950px) {

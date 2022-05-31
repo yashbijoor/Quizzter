@@ -33,12 +33,17 @@
               <th>Username</th>
               <th>Highscore</th>
             </tr>
-            <% for(i=0; i< count; i++){ %>
+            <% for(i=0; i< count; i++){ %> <% if(docs[i].email === user) { %>
+            <tr style="background-color: #f8f9fa; color: #1f1f1f">
+              <td><%= docs[i].name %></td>
+              <td><%= docs[i].highscore %></td>
+            </tr>
+            <% } else { %>
             <tr>
               <td><%= docs[i].name %></td>
               <td><%= docs[i].highscore %></td>
             </tr>
-            <% } %>
+            <% } %> <% } %>
           </table>
         </div>
       </div>
