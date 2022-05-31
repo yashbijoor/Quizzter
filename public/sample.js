@@ -26,7 +26,7 @@ function quiz() {
     }
     document.querySelector(".score").innerHTML = "Score: " + score;
   } else {
-    window.location.href = "sample-score";
+    window.location.href = "/";
   }
 }
 
