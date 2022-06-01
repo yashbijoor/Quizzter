@@ -12,7 +12,6 @@ const answers = ["3", "1", "1"];
 var flag = 0;
 var score = 0;
 var finalPoints = [];
-const endFlag = [];
 
 if (flag === 0) {
   quiz();
